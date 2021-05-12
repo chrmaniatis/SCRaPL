@@ -1,0 +1,2 @@
+Here aggregated accessibility data are going to be saved at the end of
+pre-preprocessing
