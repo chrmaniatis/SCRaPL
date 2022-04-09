@@ -15,10 +15,16 @@ Gam_thr_est: Script used to estimate gamma threshold from negative control data.
 
 Ft_detection: Script used to detect features with strong correlation with SCRaPL, Pearson and Spearman. 
 
+#################################################################################################################
+
 To get features with strong correlation, file should run in the following order:
 
 1)Demo_NMT_large_data,Demo_NMT,Demo_10X_large_data,Demo_10X --> Estimate and save posterior parameters. If SCRaPL parameters exceed 80k use large to avoid memory or convergence issues.
+
 2)If inferred parameters >=80k use Col_prts to aggregate samples, the create a negative ontrol datset using Constr_neg_exp. Otherwise, proceed with Constr_neg_exp.
-3)Demo_NMT_large_data,Demo_NMT,Demo_10X_large_data,Demo_10X --> Estimate and save posterior parameters for negative control data
+
+3)Demo_NMT_large_data,Demo_NMT,Demo_10X_large_data,Demo_10X --> Estimate and save posterior parameters for negative control data.
+
 4)Use Gam_thr_est to estimate gamma, which is used for feature detection.
+
 5)Detect features with strong correlation using Ft_detection. 
