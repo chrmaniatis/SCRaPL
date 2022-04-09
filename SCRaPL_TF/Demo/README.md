@@ -15,7 +15,7 @@ Gam_thr_est: Script used to estimate gamma threshold from negative control data.
 
 Ft_detection: Script used to detect features with strong correlation with SCRaPL, Pearson and Spearman. 
 
-#######################################################################################################################
+#################################################################################################################
 
 To get features with strong correlation, file should run in the following order:
 
