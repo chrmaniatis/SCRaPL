@@ -1,17 +1,11 @@
-Single-cell multi-omics assays offer unprecedented opportunities to explore epigenetic regulation at cellular level. However, high levels of technical noise and data sparsity frequently lead to a lack of statistical power in correlative analyses, identifying very few, if any, significant associations between different molecular layers. Here we propose SCRaPL, a novel computational tool that increases power by carefully modelling noise in the experimental systems. We show on real and simulated multi-omics single-cell data sets that SCRaPL achieves higher sensitivity and better robustness in identifying correlations, while maintaining a similar level of false positives as standard analyses based on Pearson and Spearman correlation.
+Analysis on synthetic data.
 
-The repository contains a Matlab and a Tensorflow implementation of SCRaPL. Users are encouraged to choose the Tensorflow implementation which is more scalable. 
+Synthetic_exp_XX: Inference script for synthetic experiment XX.  
 
-Pre-processing: Preprocessing scripts. This folder contains R scripts used to aggregate data from cells for genomic regions of interest,to join epigenomic with transcriptomic layers, to perform scRNA-seq normalization and QC.
+Plots_synth_exp_XX: Script plotting difference of posterior SCRaPL parameters from generating parameters for experiment XX.
 
-SCRaPL_TF: Tensorflow implementration of SCRaPL. This folder contains three subfolders. One for synthetic data analysis, one for analysis on real data and a file with demos.
+More_Plots_synth_exp_XX: Extended version of violin plot depicting the difference from truth for correlation estimates in experiment XX. 
 
-Paper/Sketches: Backup of inkscape files.
+Ft_detection_synth_XX: Detecting important genes with XX testing. 
 
-Analysis: Matlab scripts used to produce analysis in the results section.
-
-Bayesian_Inference: Matlab scripts used for inference.
-
-Negative_Control: Matlab scripts used to construct negative control datasets.
-
-Synth_analysis: Matlab scripts used to perform synthetic data analysis.
+Efficiency analysis: Script plotting the time required to perform inference as a function of problem size.
