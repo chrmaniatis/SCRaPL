@@ -15,3 +15,5 @@ Bayesian_Inference: Matlab scripts used for inference.
 Negative_Control: Matlab scripts used to construct negative control datasets.
 
 Synth_analysis: Matlab scripts used to perform synthetic data analysis.
+
+Integration: Scripts performing integration on raw and denoised with SCRaPL data.
