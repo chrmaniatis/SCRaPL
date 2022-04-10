@@ -9,14 +9,17 @@ library(EnsDb.Hsapiens.v86)
 library(patchwork)
 #This script is used to Run Seurat's integration analysis on data sampled from SCRaPL.
 io <- list()
-io$base_dir   <- "/home/christos/Desktop/ATAC-seq-trapnel/Files_new/Human/" #This line must change depending on the folder integration is performed.
-io$data_acc <- "Human_acc_seur_tmp_1.csv"
+io$dt_ext <- "_4"
+io$base_dir   <- "/SCRaPL/SCRaPL_TF/Real/Results_atac_human_col/"
+io$data_acc <- paste0("Human_acc_seur_tmp",io$dt_ext,".csv")
 
 acc <- read.table( paste0(io$base_dir,io$data_acc),sep = ",",header = TRUE,row.names = 1,stringsAsFactors = FALSE)
 colnames(acc) <- sub(".1","-1",colnames(acc))
 
 pbmc.atac <- LoadData("pbmcMultiome", "pbmc.atac")
+pbmc.atac@assays$ATAC@key <- "atac_"
 pbmc.atac <- subset(pbmc.atac, seurat_annotations != "filtered")
+
 pbmc.atac <- pbmc.atac[,pbmc.atac@meta.data$nCount_ATAC>23953]
 cell_kp <- colnames(pbmc.atac@assays$ATAC@data)
 
@@ -25,7 +28,7 @@ acc_seur <- CreateSeuratObject(log(1+acc),assay = "ATAC", project = "ATAC")#
 pbmc.atac@assays[["ATAC"]]@counts@x <- acc_seur@assays[["ATAC"]]@counts@x
 pbmc.atac@assays[["ATAC"]]@data@x <- acc_seur@assays[["ATAC"]]@data@x
 
-io$data_exp <- "Human_exp_seur_tmp_1.csv"
+io$data_exp <- paste0("Human_exp_seur_tmp",io$dt_ext,".csv")
 rna <- read.table( paste0(io$base_dir,io$data_exp),sep = ",",header = TRUE,row.names = 1,stringsAsFactors = FALSE)
 #colnames(rna) <- sub(".1","-1",colnames(rna))
 rna_seur <- CreateSeuratObject(counts = log(1+rna), project = "RNA" )#
@@ -121,3 +124,4 @@ coembed_my <- AddMetaData(object = coembed_my,metadata = coembed_my@meta.data$se
 
 p1 <- DimPlot(coembed_my, group.by = c("Modality", "Seurat_Annotations"))
 print(p1)
+

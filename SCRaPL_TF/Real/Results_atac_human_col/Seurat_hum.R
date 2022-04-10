@@ -8,9 +8,9 @@ library(data.table)
 library(EnsDb.Hsapiens.v86)
 library(patchwork)
 #This script performs integration analysis (vignette provided by authors). The data used are slightly modified compared to the ones that authors use. 
-#In particular a subset of genes and cells have benn filtered. 
+#In particular a subset of genes and cells have been filtered. 
 io <- list()
-io$base_dir   <- "/SCRaPL/Integration/" #This line must change depending on the folder integration is performed.
+io$base_dir   <- "/SCRaPL/SCRaPL_TF/Real/Results_atac_human_col/" #This line must change depending on the folder integration is performed.
 io$data_acc <- "Human_acc_seur_tmp_1.csv"
 io$data_exp <- "Human_exp_seur_tmp_1.csv"
 

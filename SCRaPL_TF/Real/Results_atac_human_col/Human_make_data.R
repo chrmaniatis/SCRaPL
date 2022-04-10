@@ -11,8 +11,18 @@ suppressPackageStartupMessages(library(SingleCellExperiment))
 suppressPackageStartupMessages(library(scater))
 suppressPackageStartupMessages(library(scran))
 
+#This script is used to load and preprocess PBMC data.
 io <- list()
-io$base_dir   <- "/home/christos/Desktop/ATAC-seq-trapnel/Files_new/Human/"
+io$base_dir   <- "/SCRaPL/SCRaPL_TF/Real/Results_atac_human_col/" #This line must change depending on the folder integration is performed.
+io$raw_acc <- "human_acc_tmp_1.csv"
+io$raw_rna <- "human_rna_tmp_1.csv"
+io$nrm_acc <- "nrm_human_acc_tmp.csv"
+io$nrm_rna <- "nrm_human_rna_tmp.csv"
+io$feature_sel <- "features_select_1.csv"
+
+
+feature_sel <- fread(paste0(io$base_dir,io$feature_sel),sep = ",",header = TRUE)
+feature_sel <- feature_sel[,-c(1)]
 
 pbmc.atac <- LoadData("pbmcMultiome", "pbmc.atac")
 pbmc.atac <- subset(pbmc.atac, seurat_annotations != "filtered")
@@ -32,6 +42,11 @@ pbmc.atac <- subset(pbmc.atac, features = VariableFeatures(pbmc.atac))
 
 acc_raw <- as.data.frame(as.matrix(pbmc.atac@assays$ATAC@counts))
 pks_all <- as.data.table(rownames(acc_raw)) %>% setnames(c("peaks_all"))
+pks_kpt <- as.data.table(pks_all$peaks_all[feature_sel$peak_ind]) %>% setnames(c("peaks"))
+acc_raw <- acc_raw[feature_sel$peak_ind,]
+
+fwrite(x=acc_raw,file = paste0(io$base_dir,io$raw_acc))
+fwrite(x=acc_nrm,file = paste0(io$base_dir,io$nrm_acc))
 
 rm(pbmc.atac,sce_acc,clusters_acc)
 
@@ -52,10 +67,15 @@ pbmc.rna <- subset(pbmc.rna, features = VariableFeatures(pbmc.rna))
 
 rna_raw <- as.data.frame(as.matrix(pbmc.rna@assays$RNA@counts))
 gns_all <- as.data.table(rownames(rna_raw)) %>% setnames(c("genes_all"))
+gns_kpt <- gns_all[feature_sel$gene_ind,] %>% setnames(c("genes"))
+rna_raw <- rna_raw[feature_sel$gene_ind,] 
 
-#To estimate Pearson correlation for choosing feature pairs please uncomment following lines
-#rna_proc <- log(1+rna_raw/rna_nrm$sizeFactor)
-#acc_proc <- log(1+acc_raw/acc_nrm$sizeFactor)
 
-#corr <- cor(t(acc_proc),t(rna_proc))
-#fwrite(x=corr,file = paste0(io$base_dir,"feature_cor_tmp.csv"))
+
+fwrite(x=rna_raw,file = paste0(io$base_dir,io$raw_rna))
+fwrite(x=rna_nrm,file = paste0(io$base_dir,io$nrm_rna))
+
+fwrite(x=gns_kpt,file = paste0(io$base_dir,"gns_tmp_1.csv"))
+fwrite(x=pks_kpt,file = paste0(io$base_dir,"pks_tmp_1.csv"))
+
+rm(pbmc.rna,sce_rna)
