@@ -1,17 +1,19 @@
-File with inference scripts for real data.
+Folder used to store inference results on PBMC data and perform integration . 
 
-Data: Folder where all real data are stored.
+To replicate integration results use the following steps:
 
-Data: Folder where negative control data made from real data are stored.
+1)Run Human_estimate_cor to produce the correlation matrix between all features.
 
-Paper_Analysis: Contains scripts for feature detection, individual gene plotting, creation of volcano plots. 
+2)Run Pick_features.ipynd to pick 60k features with the highest in magnitude Pearson correlation.
 
-Results_XX: Folders where results from various experiments are stored.
+3)Run Human_make_data to load pre-process and save PBMC data.
 
-Results_atac_human_col: Apart from results of inference on PBMC data, this folder is also used for integration.
+4)Run SCRaPL_atac_human(in parent direcotry) to sample parameters of interest.
 
-SCRaPL_XX: Inference scripts for experiments with real data. A brief description of the experiment is contained in the beginning of each script. 
+5)Run Col_prts to aggregate posterior samples form different chunks.
 
-Gam_thr_est: Gamma threshold estimation from negative control data. 
+6)Sample latent space from the model using Gen_dat.
 
-Model_comp_brain_gastr: Script used to make the DIC plots presented in figure 6 of the manuscript.
+7)Run Seurat_my_data_int to perform integration on SCRaPL denoised data.
+
+8)Run Seurat_hum to perform integration on raw data.
