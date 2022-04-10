@@ -8,6 +8,8 @@ Paper_Analysis: Contains scripts for feature detection, individual gene plotting
 
 Results_XX: Folders where results from various experiments are stored.
 
+Results_atac_human_col: Apart from results of inference on PBMC data, this folder is also used for integration.
+
 SCRaPL_XX: Inference scripts for experiments with real data. A brief description of the experiment is contained in the beginning of each script. 
 
 Gam_thr_est: Gamma threshold estimation from negative control data. 
